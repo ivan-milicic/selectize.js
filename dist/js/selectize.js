@@ -1,5 +1,5 @@
 /**
- * selectize.js (v0.12.8)
+ * selectize.js (v0.12.9)
  * Copyright (c) 2013–2015 Brian Reavis & contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -857,18 +857,18 @@
 		 * @param {object} e
 		 * @return {boolean}
 		 */
-		// onClick: function(e) {
-		// 	var self = this;
+		onClick: function (e) {
+			// var self = this;
 	
-		// 	// necessary for mobile webkit devices (manual focus triggering
-		// 	// is ignored unless invoked within a click event)
-		// // also necessary to reopen a dropdown that has been closed by
-		// // closeAfterSelect
-		// 	if (!self.isFocused || !self.isOpen) {
-		// 		self.focus();
-		// 		e.preventDefault();
-		// 	}
-		// },
+			// necessary for mobile webkit devices (manual focus triggering
+			// is ignored unless invoked within a click event)
+			// also necessary to reopen a dropdown that has been closed by
+			// closeAfterSelect
+			// if (!self.isFocused || !self.isOpen) {
+			// 	self.focus();
+			// 	e.preventDefault();
+			// }
+		},
 	
 		/**
 		 * Triggered when the main control element
