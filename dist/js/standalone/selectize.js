@@ -635,7 +635,7 @@
 }));
 
 /**
- * selectize.js (v0.12.6)
+ * selectize.js (v0.12.8)
  * Copyright (c) 2013–2015 Brian Reavis & contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -1131,7 +1131,7 @@
 	}
 	
 	
-	var Selectize = function($input, settings) {
+	var Selectize = function ($input, settings) {
 		var key, i, n, dir, input, self = this;
 		input = $input[0];
 		input.selectize = self;
@@ -1143,50 +1143,50 @@
 	
 		// setup default state
 		$.extend(self, {
-			order            : 0,
-			settings         : settings,
-			$input           : $input,
-			tabIndex         : $input.attr('tabindex') || '',
-			tagType          : input.tagName.toLowerCase() === 'select' ? TAG_SELECT : TAG_INPUT,
-			rtl              : /rtl/i.test(dir),
+			order: 0,
+			settings: settings,
+			$input: $input,
+			tabIndex: $input.attr('tabindex') || '',
+			tagType: input.tagName.toLowerCase() === 'select' ? TAG_SELECT : TAG_INPUT,
+			rtl: /rtl/i.test(dir),
 	
-			eventNS          : '.selectize' + (++Selectize.count),
-			highlightedValue : null,
-			isBlurring       : false,
-			isOpen           : false,
-			isDisabled       : false,
-			isRequired       : $input.is('[required]'),
-			isInvalid        : false,
-			isLocked         : false,
-			isFocused        : false,
-			isInputHidden    : false,
-			isSetup          : false,
-			isShiftDown      : false,
-			isCmdDown        : false,
-			isCtrlDown       : false,
-			ignoreFocus      : false,
-			ignoreBlur       : false,
-			ignoreHover      : false,
-			hasOptions       : false,
-			currentResults   : null,
-			lastValue        : '',
-			caretPos         : 0,
-			loading          : 0,
-			loadedSearches   : {},
+			eventNS: '.selectize' + (++Selectize.count),
+			highlightedValue: null,
+			isBlurring: false,
+			isOpen: false,
+			isDisabled: false,
+			isRequired: $input.is('[required]'),
+			isInvalid: false,
+			isLocked: false,
+			isFocused: false,
+			isInputHidden: false,
+			isSetup: false,
+			isShiftDown: false,
+			isCmdDown: false,
+			isCtrlDown: false,
+			ignoreFocus: false,
+			ignoreBlur: false,
+			ignoreHover: false,
+			hasOptions: false,
+			currentResults: null,
+			lastValue: '',
+			caretPos: 0,
+			loading: 0,
+			loadedSearches: {},
 	
-			$activeOption    : null,
-			$activeItems     : [],
+			$activeOption: null,
+			$activeItems: [],
 	
-			optgroups        : {},
-			options          : {},
-			userOptions      : {},
-			items            : [],
-			renderCache      : {},
-			onSearchChange   : settings.loadThrottle === null ? self.onSearchChange : debounce(self.onSearchChange, settings.loadThrottle)
+			optgroups: {},
+			options: {},
+			userOptions: {},
+			items: [],
+			renderCache: {},
+			onSearchChange: settings.loadThrottle === null ? self.onSearchChange : debounce(self.onSearchChange, settings.loadThrottle)
 		});
 	
 		// search system
-		self.sifter = new Sifter(this.options, {diacritics: settings.diacritics});
+		self.sifter = new Sifter(this.options, { diacritics: settings.diacritics });
 	
 		// build options table
 		if (self.settings.options) {
@@ -1221,14 +1221,16 @@
 	
 	MicroEvent.mixin(Selectize);
 	
-	if(typeof MicroPlugin !== "undefined"){
+	if (typeof MicroPlugin !== "undefined") {
 		MicroPlugin.mixin(Selectize);
-	}else{
+	} else {
 		logError("Dependency MicroPlugin is missing",
-			{explanation:
-				"Make sure you either: (1) are using the \"standalone\" "+
-				"version of Selectize, or (2) require MicroPlugin before you "+
-				"load Selectize."}
+			{
+				explanation:
+					"Make sure you either: (1) are using the \"standalone\" " +
+					"version of Selectize, or (2) require MicroPlugin before you " +
+					"load Selectize."
+			}
 		);
 	}
 	
@@ -1241,13 +1243,13 @@
 		/**
 		 * Creates all elements and sets up event bindings.
 		 */
-		setup: function() {
-			var self      = this;
-			var settings  = self.settings;
-			var eventNS   = self.eventNS;
-			var $window   = $(window);
+		setup: function () {
+			var self = this;
+			var settings = self.settings;
+			var eventNS = self.eventNS;
+			var $window = $(window);
 			var $document = $(document);
-			var $input    = self.$input;
+			var $input = self.$input;
 	
 			var $wrapper;
 			var $control;
@@ -1262,22 +1264,22 @@
 			var classes_plugins;
 			var inputId;
 	
-			inputMode         = self.settings.mode;
-			classes           = $input.attr('class') || '';
+			inputMode = self.settings.mode;
+			classes = $input.attr('class') || '';
 	
-			$wrapper          = $('<div>').addClass(settings.wrapperClass).addClass(classes).addClass(inputMode);
-			$control          = $('<div>').addClass(settings.inputClass).addClass('items').appendTo($wrapper);
-			$control_input    = $('<input type="text" autocomplete="off" />').appendTo($control).attr('tabindex', $input.is(':disabled') ? '-1' : self.tabIndex);
-			$dropdown_parent  = $(settings.dropdownParent || $wrapper);
-			$dropdown         = $('<div>').addClass(settings.dropdownClass).addClass(inputMode).hide().appendTo($dropdown_parent);
+			$wrapper = $('<div>').addClass(settings.wrapperClass).addClass(classes).addClass(inputMode);
+			$control = $('<div>').addClass(settings.inputClass).addClass('items').appendTo($wrapper);
+			$control_input = $('<input type="text" autocomplete="off" />').appendTo($control).attr('tabindex', $input.is(':disabled') ? '-1' : self.tabIndex);
+			$dropdown_parent = $(settings.dropdownParent || $wrapper);
+			$dropdown = $('<div>').addClass(settings.dropdownClass).addClass(inputMode).hide().appendTo($dropdown_parent);
 			$dropdown_content = $('<div>').addClass(settings.dropdownContentClass).appendTo($dropdown);
 	
-			if(inputId = $input.attr('id')) {
+			if (inputId = $input.attr('id')) {
 				$control_input.attr('id', inputId + '-selectized');
-				$("label[for='"+inputId+"']").attr('for', inputId + '-selectized');
+				$("label[for='" + inputId + "']").attr('for', inputId + '-selectized');
 			}
 	
-			if(self.settings.copyClassesToDropdown) {
+			if (self.settings.copyClassesToDropdown) {
 				$dropdown.addClass(classes);
 			}
 	
@@ -1314,47 +1316,47 @@
 			}
 			$control_input[0].type = $input[0].type;
 	
-			self.$wrapper          = $wrapper;
-			self.$control          = $control;
-			self.$control_input    = $control_input;
-			self.$dropdown         = $dropdown;
+			self.$wrapper = $wrapper;
+			self.$control = $control;
+			self.$control_input = $control_input;
+			self.$dropdown = $dropdown;
 			self.$dropdown_content = $dropdown_content;
 	
-			$dropdown.on('mouseenter mousedown click', '[data-disabled]>[data-selectable]', function(e) { e.stopImmediatePropagation(); });
-			$dropdown.on('mouseenter', '[data-selectable]', function() { return self.onOptionHover.apply(self, arguments); });
-			$dropdown.on('mousedown click', '[data-selectable]', function() { return self.onOptionSelect.apply(self, arguments); });
-			watchChildEvent($control, 'mousedown', '*:not(input)', function() { return self.onItemSelect.apply(self, arguments); });
+			$dropdown.on('mouseenter mousedown click', '[data-disabled]>[data-selectable]', function (e) { e.stopImmediatePropagation(); });
+			$dropdown.on('mouseenter', '[data-selectable]', function () { return self.onOptionHover.apply(self, arguments); });
+			$dropdown.on('mousedown click', '[data-selectable]', function () { return self.onOptionSelect.apply(self, arguments); });
+			watchChildEvent($control, 'mousedown', '*:not(input)', function () { return self.onItemSelect.apply(self, arguments); });
 			autoGrow($control_input);
 	
 			$control.on({
-				mousedown : function() { return self.onMouseDown.apply(self, arguments); },
-				click     : function() { return self.onClick.apply(self, arguments); }
+				mousedown: function () { return self.onMouseDown.apply(self, arguments); },
+				click: function () { return self.onClick.apply(self, arguments); }
 			});
 	
 			$control_input.on({
-				mousedown : function(e) { e.stopPropagation(); },
-				keydown   : function() { return self.onKeyDown.apply(self, arguments); },
-				keyup     : function() { return self.onKeyUp.apply(self, arguments); },
-				keypress  : function() { return self.onKeyPress.apply(self, arguments); },
-				resize    : function() { self.positionDropdown.apply(self, []); },
-				blur      : function() { return self.onBlur.apply(self, arguments); },
-				focus     : function() { self.ignoreBlur = false; return self.onFocus.apply(self, arguments); },
-				paste     : function() { return self.onPaste.apply(self, arguments); }
+				mousedown: function (e) { e.stopPropagation(); },
+				keydown: function () { return self.onKeyDown.apply(self, arguments); },
+				keyup: function () { return self.onKeyUp.apply(self, arguments); },
+				keypress: function () { return self.onKeyPress.apply(self, arguments); },
+				resize: function () { self.positionDropdown.apply(self, []); },
+				blur: function () { return self.onBlur.apply(self, arguments); },
+				focus: function () { self.ignoreBlur = false; return self.onFocus.apply(self, arguments); },
+				paste: function () { return self.onPaste.apply(self, arguments); }
 			});
 	
-			$document.on('keydown' + eventNS, function(e) {
+			$document.on('keydown' + eventNS, function (e) {
 				self.isCmdDown = e[IS_MAC ? 'metaKey' : 'ctrlKey'];
 				self.isCtrlDown = e[IS_MAC ? 'altKey' : 'ctrlKey'];
 				self.isShiftDown = e.shiftKey;
 			});
 	
-			$document.on('keyup' + eventNS, function(e) {
+			$document.on('keyup' + eventNS, function (e) {
 				if (e.keyCode === KEY_CTRL) self.isCtrlDown = false;
 				if (e.keyCode === KEY_SHIFT) self.isShiftDown = false;
 				if (e.keyCode === KEY_CMD) self.isCmdDown = false;
 			});
 	
-			$document.on('mousedown' + eventNS, function(e) {
+			$document.on('mousedown' + eventNS, function (e) {
 				if (self.isFocused) {
 					// prevent events on the dropdown scrollbar from causing the control to blur
 					if (e.target === self.$dropdown[0] || e.target.parentNode === self.$dropdown[0]) {
@@ -1367,20 +1369,20 @@
 				}
 			});
 	
-			$window.on(['scroll' + eventNS, 'resize' + eventNS].join(' '), function() {
+			$window.on(['scroll' + eventNS, 'resize' + eventNS].join(' '), function () {
 				if (self.isOpen) {
 					self.positionDropdown.apply(self, arguments);
 				}
 			});
-			$window.on('mousemove' + eventNS, function() {
+			$window.on('mousemove' + eventNS, function () {
 				self.ignoreHover = false;
 			});
 	
 			// store original children and tab index so that they can be
 			// restored when the destroy() method is called.
 			this.revertSettings = {
-				$children : $input.children().detach(),
-				tabindex  : $input.attr('tabindex')
+				$children: $input.children().detach(),
+				tabindex: $input.attr('tabindex')
 			};
 	
 			$input.attr('tabindex', -1).hide().after(self.$wrapper);
@@ -1392,7 +1394,7 @@
 	
 			// feature detect for the validation API
 			if (SUPPORTS_VALIDITY_API) {
-				$input.on('invalid' + eventNS, function(e) {
+				$input.on('invalid' + eventNS, function (e) {
 					e.preventDefault();
 					self.isInvalid = true;
 					self.refreshState();
@@ -1425,25 +1427,25 @@
 		/**
 		 * Sets up default rendering functions.
 		 */
-		setupTemplates: function() {
+		setupTemplates: function () {
 			var self = this;
 			var field_label = self.settings.labelField;
 			var field_optgroup = self.settings.optgroupLabelField;
 	
 			var templates = {
-				'optgroup': function(data) {
+				'optgroup': function (data) {
 					return '<div class="optgroup">' + data.html + '</div>';
 				},
-				'optgroup_header': function(data, escape) {
+				'optgroup_header': function (data, escape) {
 					return '<div class="optgroup-header">' + escape(data[field_optgroup]) + '</div>';
 				},
-				'option': function(data, escape) {
+				'option': function (data, escape) {
 					return '<div class="option">' + escape(data[field_label]) + '</div>';
 				},
-				'item': function(data, escape) {
+				'item': function (data, escape) {
 					return '<div class="item">' + escape(data[field_label]) + '</div>';
 				},
-				'option_create': function(data, escape) {
+				'option_create': function (data, escape) {
 					return '<div class="create">Add <strong>' + escape(data.input) + '</strong>&hellip;</div>';
 				}
 			};
@@ -1455,25 +1457,25 @@
 		 * Maps fired events to callbacks provided
 		 * in the settings used when creating the control.
 		 */
-		setupCallbacks: function() {
+		setupCallbacks: function () {
 			var key, fn, callbacks = {
-				'initialize'      : 'onInitialize',
-				'change'          : 'onChange',
-				'item_add'        : 'onItemAdd',
-				'item_remove'     : 'onItemRemove',
-				'clear'           : 'onClear',
-				'option_add'      : 'onOptionAdd',
-				'option_remove'   : 'onOptionRemove',
-				'option_clear'    : 'onOptionClear',
-				'optgroup_add'    : 'onOptionGroupAdd',
-				'optgroup_remove' : 'onOptionGroupRemove',
-				'optgroup_clear'  : 'onOptionGroupClear',
-				'dropdown_open'   : 'onDropdownOpen',
-				'dropdown_close'  : 'onDropdownClose',
-				'type'            : 'onType',
-				'load'            : 'onLoad',
-				'focus'           : 'onFocus',
-				'blur'            : 'onBlur'
+				'initialize': 'onInitialize',
+				'change': 'onChange',
+				'item_add': 'onItemAdd',
+				'item_remove': 'onItemRemove',
+				'clear': 'onClear',
+				'option_add': 'onOptionAdd',
+				'option_remove': 'onOptionRemove',
+				'option_clear': 'onOptionClear',
+				'optgroup_add': 'onOptionGroupAdd',
+				'optgroup_remove': 'onOptionGroupRemove',
+				'optgroup_clear': 'onOptionGroupClear',
+				'dropdown_open': 'onDropdownOpen',
+				'dropdown_close': 'onDropdownClose',
+				'type': 'onType',
+				'load': 'onLoad',
+				'focus': 'onFocus',
+				'blur': 'onBlur'
 			};
 	
 			for (key in callbacks) {
@@ -1491,18 +1493,18 @@
 		 * @param {object} e
 		 * @return {boolean}
 		 */
-		onClick: function(e) {
-			var self = this;
+		// onClick: function(e) {
+		// 	var self = this;
 	
-			// necessary for mobile webkit devices (manual focus triggering
-			// is ignored unless invoked within a click event)
-	    // also necessary to reopen a dropdown that has been closed by
-	    // closeAfterSelect
-			if (!self.isFocused || !self.isOpen) {
-				self.focus();
-				e.preventDefault();
-			}
-		},
+		// 	// necessary for mobile webkit devices (manual focus triggering
+		// 	// is ignored unless invoked within a click event)
+		// // also necessary to reopen a dropdown that has been closed by
+		// // closeAfterSelect
+		// 	if (!self.isFocused || !self.isOpen) {
+		// 		self.focus();
+		// 		e.preventDefault();
+		// 	}
+		// },
 	
 		/**
 		 * Triggered when the main control element
@@ -1511,7 +1513,7 @@
 		 * @param {object} e
 		 * @return {boolean}
 		 */
-		onMouseDown: function(e) {
+		onMouseDown: function (e) {
 			var self = this;
 			var defaultPrevented = e.isDefaultPrevented();
 			var $target = $(e.target);
@@ -1532,7 +1534,7 @@
 			} else {
 				// give control focus
 				if (!defaultPrevented) {
-					window.setTimeout(function() {
+					window.setTimeout(function () {
 						self.focus();
 					}, 0);
 				}
@@ -1544,7 +1546,7 @@
 		 * This should propagate the event to the original DOM
 		 * input / select element.
 		 */
-		onChange: function() {
+		onChange: function () {
 			this.$input.trigger('change');
 		},
 	
@@ -1554,7 +1556,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onPaste: function(e) {
+		onPaste: function (e) {
 			var self = this;
 	
 			if (self.isFull() || self.isInputHidden || self.isLocked) {
@@ -1567,9 +1569,9 @@
 			if (self.settings.splitOn) {
 	
 				// Wait for pasted text to be recognized in value
-				setTimeout(function() {
+				setTimeout(function () {
 					var pastedText = self.$control_input.val();
-					if(!pastedText.match(self.settings.splitOn)){ return }
+					if (!pastedText.match(self.settings.splitOn)) { return }
 	
 					var splitInput = $.trim(pastedText).split(self.settings.splitOn);
 					for (var i = 0, n = splitInput.length; i < n; i++) {
@@ -1585,7 +1587,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onKeyPress: function(e) {
+		onKeyPress: function (e) {
 			if (this.isLocked) return e && e.preventDefault();
 			var character = String.fromCharCode(e.keyCode || e.which);
 			if (this.settings.create && this.settings.mode === 'multi' && character === this.settings.delimiter) {
@@ -1601,7 +1603,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onKeyDown: function(e) {
+		onKeyDown: function (e) {
 			var isInput = e.target === this.$control_input[0];
 			var self = this;
 	
@@ -1650,7 +1652,7 @@
 					return;
 				case KEY_RETURN:
 					if (self.isOpen && self.$activeOption) {
-						self.onOptionSelect({currentTarget: self.$activeOption});
+						self.onOptionSelect({ currentTarget: self.$activeOption });
 						e.preventDefault();
 					}
 					return;
@@ -1662,7 +1664,7 @@
 					return;
 				case KEY_TAB:
 					if (self.settings.selectOnTab && self.isOpen && self.$activeOption) {
-						self.onOptionSelect({currentTarget: self.$activeOption});
+						self.onOptionSelect({ currentTarget: self.$activeOption });
 	
 						// Default behaviour is to jump to the next field, we only want this
 						// if the current field doesn't accept any more entries
@@ -1692,7 +1694,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onKeyUp: function(e) {
+		onKeyUp: function (e) {
 			var self = this;
 	
 			if (self.isLocked) return e && e.preventDefault();
@@ -1713,13 +1715,13 @@
 		 *
 		 * @param {string} value
 		 */
-		onSearchChange: function(value) {
+		onSearchChange: function (value) {
 			var self = this;
 			var fn = self.settings.load;
 			if (!fn) return;
 			if (self.loadedSearches.hasOwnProperty(value)) return;
 			self.loadedSearches[value] = true;
-			self.load(function(callback) {
+			self.load(function (callback) {
 				fn.apply(self, [value, callback]);
 			});
 		},
@@ -1730,7 +1732,7 @@
 		 * @param {object} e (optional)
 		 * @returns {boolean}
 		 */
-		onFocus: function(e) {
+		onFocus: function (e) {
 			var self = this;
 			var wasFocused = self.isFocused;
 	
@@ -1761,7 +1763,7 @@
 		 * @param {object} e
 		 * @param {Element} dest
 		 */
-		onBlur: function(e, dest) {
+		onBlur: function (e, dest) {
 			var self = this;
 			if (!self.isFocused) return;
 			self.isFocused = false;
@@ -1775,7 +1777,7 @@
 				return;
 			}
 	
-			var deactivate = function() {
+			var deactivate = function () {
 				self.close();
 				self.setTextboxValue('');
 				self.setActiveItem(null);
@@ -1807,7 +1809,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onOptionHover: function(e) {
+		onOptionHover: function (e) {
 			if (this.ignoreHover) return;
 			this.setActiveOption(e.currentTarget, false);
 		},
@@ -1819,7 +1821,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onOptionSelect: function(e) {
+		onOptionSelect: function (e) {
 			var value, $target, $option, self = this;
 	
 			if (e.preventDefault) {
@@ -1829,7 +1831,7 @@
 	
 			$target = $(e.currentTarget);
 			if ($target.hasClass('create')) {
-				self.createItem(null, function() {
+				self.createItem(null, function () {
 					if (self.settings.closeAfterSelect) {
 						self.close();
 					}
@@ -1856,7 +1858,7 @@
 		 * @param {object} e
 		 * @returns {boolean}
 		 */
-		onItemSelect: function(e) {
+		onItemSelect: function (e) {
 			var self = this;
 	
 			if (self.isLocked) return;
@@ -1873,12 +1875,12 @@
 		 *
 		 * @param {function} fn
 		 */
-		load: function(fn) {
+		load: function (fn) {
 			var self = this;
 			var $wrapper = self.$wrapper.addClass(self.settings.loadingClass);
 	
 			self.loading++;
-			fn.apply(self, [function(results) {
+			fn.apply(self, [function (results) {
 				self.loading = Math.max(self.loading - 1, 0);
 				if (results && results.length) {
 					self.addOption(results);
@@ -1896,7 +1898,7 @@
 		 *
 		 * @param {string} value
 		 */
-		setTextboxValue: function(value) {
+		setTextboxValue: function (value) {
 			var $input = this.$control_input;
 			var changed = $input.val() !== value;
 			if (changed) {
@@ -1913,7 +1915,7 @@
 		 *
 		 * @returns {mixed}
 		 */
-		getValue: function() {
+		getValue: function () {
 			if (this.tagType === TAG_SELECT && this.$input.attr('multiple')) {
 				return this.items;
 			} else {
@@ -1926,10 +1928,10 @@
 		 *
 		 * @param {mixed} value
 		 */
-		setValue: function(value, silent) {
+		setValue: function (value, silent) {
 			var events = silent ? [] : ['change'];
 	
-			debounce_events(this, events, function() {
+			debounce_events(this, events, function () {
 				this.clear(silent);
 				this.addItems(value, silent);
 			});
@@ -1941,7 +1943,7 @@
 		 * @param {object} $item
 		 * @param {object} e (optional)
 		 */
-		setActiveItem: function($item, e) {
+		setActiveItem: function ($item, e) {
 			var self = this;
 			var eventName;
 			var i, idx, begin, end, item, swap;
@@ -1966,11 +1968,11 @@
 			if (eventName === 'mousedown' && self.isShiftDown && self.$activeItems.length) {
 				$last = self.$control.children('.active:last');
 				begin = Array.prototype.indexOf.apply(self.$control[0].childNodes, [$last[0]]);
-				end   = Array.prototype.indexOf.apply(self.$control[0].childNodes, [$item[0]]);
+				end = Array.prototype.indexOf.apply(self.$control[0].childNodes, [$item[0]]);
 				if (begin > end) {
-					swap  = begin;
+					swap = begin;
 					begin = end;
-					end   = swap;
+					end = swap;
 				}
 				for (i = begin; i <= end; i++) {
 					item = self.$control[0].childNodes[i];
@@ -2008,7 +2010,7 @@
 		 * @param {boolean} scroll
 		 * @param {boolean} animate
 		 */
-		setActiveOption: function($option, scroll, animate) {
+		setActiveOption: function ($option, scroll, animate) {
 			var height_menu, height_item, y;
 			var scroll_top, scroll_bottom;
 			var self = this;
@@ -2023,17 +2025,17 @@
 	
 			if (scroll || !isset(scroll)) {
 	
-				height_menu   = self.$dropdown_content.height();
-				height_item   = self.$activeOption.outerHeight(true);
-				scroll        = self.$dropdown_content.scrollTop() || 0;
-				y             = self.$activeOption.offset().top - self.$dropdown_content.offset().top + scroll;
-				scroll_top    = y;
+				height_menu = self.$dropdown_content.height();
+				height_item = self.$activeOption.outerHeight(true);
+				scroll = self.$dropdown_content.scrollTop() || 0;
+				y = self.$activeOption.offset().top - self.$dropdown_content.offset().top + scroll;
+				scroll_top = y;
 				scroll_bottom = y - height_menu + height_item;
 	
 				if (y + height_item > height_menu + scroll) {
-					self.$dropdown_content.stop().animate({scrollTop: scroll_bottom}, animate ? self.settings.scrollDuration : 0);
+					self.$dropdown_content.stop().animate({ scrollTop: scroll_bottom }, animate ? self.settings.scrollDuration : 0);
 				} else if (y < scroll) {
-					self.$dropdown_content.stop().animate({scrollTop: scroll_top}, animate ? self.settings.scrollDuration : 0);
+					self.$dropdown_content.stop().animate({ scrollTop: scroll_top }, animate ? self.settings.scrollDuration : 0);
 				}
 	
 			}
@@ -2042,7 +2044,7 @@
 		/**
 		 * Selects all items (CTRL + A).
 		 */
-		selectAll: function() {
+		selectAll: function () {
 			var self = this;
 			if (self.settings.mode === 'single') return;
 	
@@ -2058,32 +2060,32 @@
 		 * Hides the input element out of view, while
 		 * retaining its focus.
 		 */
-		hideInput: function() {
+		hideInput: function () {
 			var self = this;
 	
 			self.setTextboxValue('');
-			self.$control_input.css({opacity: 0, position: 'absolute', left: self.rtl ? 10000 : -10000});
+			self.$control_input.css({ opacity: 0, position: 'absolute', left: self.rtl ? 10000 : -10000 });
 			self.isInputHidden = true;
 		},
 	
 		/**
 		 * Restores input visibility.
 		 */
-		showInput: function() {
-			this.$control_input.css({opacity: 1, position: 'relative', left: 0});
+		showInput: function () {
+			this.$control_input.css({ opacity: 1, position: 'relative', left: 0 });
 			this.isInputHidden = false;
 		},
 	
 		/**
 		 * Gives the control focus.
 		 */
-		focus: function() {
+		focus: function () {
 			var self = this;
 			if (self.isDisabled) return;
 	
 			self.ignoreFocus = true;
 			self.$control_input[0].focus();
-			window.setTimeout(function() {
+			window.setTimeout(function () {
 				self.ignoreFocus = false;
 				self.onFocus();
 			}, 0);
@@ -2094,7 +2096,7 @@
 		 *
 		 * @param {Element} dest
 		 */
-		blur: function(dest) {
+		blur: function (dest) {
 			this.$control_input[0].blur();
 			this.onBlur(null, dest);
 		},
@@ -2108,7 +2110,7 @@
 		 * @param {object} options
 		 * @return {function}
 		 */
-		getScoreFunction: function(query) {
+		getScoreFunction: function (query) {
 			return this.sifter.getScoreFunction(query, this.getSearchOptions());
 		},
 	
@@ -2119,18 +2121,18 @@
 		 * @see https://github.com/brianreavis/sifter.js
 		 * @return {object}
 		 */
-		getSearchOptions: function() {
+		getSearchOptions: function () {
 			var settings = this.settings;
 			var sort = settings.sortField;
 			if (typeof sort === 'string') {
-				sort = [{field: sort}];
+				sort = [{ field: sort }];
 			}
 	
 			return {
-				fields      : settings.searchField,
-				conjunction : settings.searchConjunction,
-				sort        : sort,
-				nesting     : settings.nesting
+				fields: settings.searchField,
+				conjunction: settings.searchConjunction,
+				sort: sort,
+				nesting: settings.nesting
 			};
 		},
 	
@@ -2148,11 +2150,11 @@
 		 * @param {string} query
 		 * @returns {object}
 		 */
-		search: function(query) {
+		search: function (query) {
 			var i, value, score, result, calculateScore;
-			var self     = this;
+			var self = this;
 			var settings = self.settings;
-			var options  = this.getSearchOptions();
+			var options = this.getSearchOptions();
 	
 			// validate user-provided result scoring function
 			if (settings.score) {
@@ -2165,7 +2167,7 @@
 			// perform search
 			if (query !== self.lastQuery) {
 				self.lastQuery = query;
-				result = self.sifter.search(query, $.extend(options, {score: calculateScore}));
+				result = self.sifter.search(query, $.extend(options, { score: calculateScore }));
 				self.currentResults = result;
 			} else {
 				result = $.extend(true, {}, self.currentResults);
@@ -2189,7 +2191,7 @@
 		 *
 		 * @param {boolean} triggerDropdown
 		 */
-		refreshOptions: function(triggerDropdown) {
+		refreshOptions: function (triggerDropdown) {
 			var i, j, k, n, groups, groups_order, option, option_html, optgroup, optgroups, html, html_children, has_create_option;
 			var $active, $active_before, $create;
 	
@@ -2197,11 +2199,11 @@
 				triggerDropdown = true;
 			}
 	
-			var self              = this;
-			var query             = $.trim(self.$control_input.val());
-			var results           = self.search(query);
+			var self = this;
+			var query = $.trim(self.$control_input.val());
+			var results = self.search(query);
 			var $dropdown_content = self.$dropdown_content;
-			var active_before     = self.$activeOption && hash_key(self.$activeOption.attr('data-value'));
+			var active_before = self.$activeOption && hash_key(self.$activeOption.attr('data-value'));
 	
 			// build markup
 			n = results.items.length;
@@ -2214,10 +2216,10 @@
 			groups_order = [];
 	
 			for (i = 0; i < n; i++) {
-				option      = self.options[results.items[i].id];
+				option = self.options[results.items[i].id];
 				option_html = self.render('option', option);
-				optgroup    = option[self.settings.optgroupField] || '';
-				optgroups   = $.isArray(optgroup) ? optgroup : [optgroup];
+				optgroup = option[self.settings.optgroupField] || '';
+				optgroups = $.isArray(optgroup) ? optgroup : [optgroup];
 	
 				for (j = 0, k = optgroups && optgroups.length; j < k; j++) {
 					optgroup = optgroups[j];
@@ -2234,7 +2236,7 @@
 	
 			// sort optgroups
 			if (this.settings.lockOptgroupOrder) {
-				groups_order.sort(function(a, b) {
+				groups_order.sort(function (a, b) {
 					var a_order = self.optgroups[a].$order || 0;
 					var b_order = self.optgroups[b].$order || 0;
 					return a_order - b_order;
@@ -2254,7 +2256,7 @@
 	
 					html.appendChild(self.render('optgroup', $.extend({}, self.optgroups[optgroup], {
 						html: domToString(html_children),
-						dom:  html_children
+						dom: html_children
 					})));
 				} else {
 					html.appendChild(groups[optgroup]);
@@ -2283,7 +2285,7 @@
 			// add create option
 			has_create_option = self.canCreate(query);
 			if (has_create_option) {
-				$dropdown_content.prepend(self.render('option_create', {input: query}));
+				$dropdown_content.prepend(self.render('option_create', { input: query }));
 				$create = $($dropdown_content[0].childNodes[0]);
 			}
 	
@@ -2327,7 +2329,7 @@
 		 *
 		 * @param {object|array} data
 		 */
-		addOption: function(data) {
+		addOption: function (data) {
 			var i, n, value, self = this;
 	
 			if ($.isArray(data)) {
@@ -2350,7 +2352,7 @@
 		 * @param {object} data
 		 * @return {boolean|string}
 		 */
-		registerOption: function(data) {
+		registerOption: function (data) {
 			var key = hash_key(data[this.settings.valueField]);
 			if (typeof key === 'undefined' || key === null || this.options.hasOwnProperty(key)) return false;
 			data.$order = data.$order || ++this.order;
@@ -2364,7 +2366,7 @@
 		 * @param {object} data
 		 * @return {boolean|string}
 		 */
-		registerOptionGroup: function(data) {
+		registerOptionGroup: function (data) {
 			var key = hash_key(data[this.settings.optgroupValueField]);
 			if (!key) return false;
 	
@@ -2380,7 +2382,7 @@
 		 * @param {string} id
 		 * @param {object} data
 		 */
-		addOptionGroup: function(id, data) {
+		addOptionGroup: function (id, data) {
 			data[this.settings.optgroupValueField] = id;
 			if (id = this.registerOptionGroup(data)) {
 				this.trigger('optgroup_add', id, data);
@@ -2392,7 +2394,7 @@
 		 *
 		 * @param {string} id
 		 */
-		removeOptionGroup: function(id) {
+		removeOptionGroup: function (id) {
 			if (this.optgroups.hasOwnProperty(id)) {
 				delete this.optgroups[id];
 				this.renderCache = {};
@@ -2403,7 +2405,7 @@
 		/**
 		 * Clears all existing option groups.
 		 */
-		clearOptionGroups: function() {
+		clearOptionGroups: function () {
 			this.optgroups = {};
 			this.renderCache = {};
 			this.trigger('optgroup_clear');
@@ -2417,12 +2419,12 @@
 		 * @param {string} value
 		 * @param {object} data
 		 */
-		updateOption: function(value, data) {
+		updateOption: function (value, data) {
 			var self = this;
 			var $item, $item_new;
 			var value_new, index_item, cache_items, cache_options, order_old;
 	
-			value     = hash_key(value);
+			value = hash_key(value);
 			value_new = hash_key(data[self.settings.valueField]);
 	
 			// sanity checks
@@ -2479,7 +2481,7 @@
 		 * @param {string} value
 		 * @param {boolean} silent
 		 */
-		removeOption: function(value, silent) {
+		removeOption: function (value, silent) {
 			var self = this;
 			value = hash_key(value);
 	
@@ -2498,15 +2500,15 @@
 		/**
 		 * Clears all options.
 		 */
-		clearOptions: function() {
+		clearOptions: function () {
 			var self = this;
 	
 			self.loadedSearches = {};
 			self.userOptions = {};
 			self.renderCache = {};
 			var options = self.options;
-			$.each(self.options, function(key, value) {
-				if(self.items.indexOf(key) == -1) {
+			$.each(self.options, function (key, value) {
+				if (self.items.indexOf(key) == -1) {
 					delete options[key];
 				}
 			});
@@ -2522,7 +2524,7 @@
 		 * @param {string} value
 		 * @returns {object}
 		 */
-		getOption: function(value) {
+		getOption: function (value) {
 			return this.getElementWithValue(value, this.$dropdown_content.find('[data-selectable]'));
 		},
 	
@@ -2534,9 +2536,9 @@
 		 * @param {int} direction  can be 1 for next or -1 for previous
 		 * @return {object}
 		 */
-		getAdjacentOption: function($option, direction) {
+		getAdjacentOption: function ($option, direction) {
 			var $options = this.$dropdown.find('[data-selectable]');
-			var index    = $options.index($option) + direction;
+			var index = $options.index($option) + direction;
 	
 			return index >= 0 && index < $options.length ? $options.eq(index) : $();
 		},
@@ -2549,7 +2551,7 @@
 		 * @param {object} $els
 		 * @return {object}
 		 */
-		getElementWithValue: function(value, $els) {
+		getElementWithValue: function (value, $els) {
 			value = hash_key(value);
 	
 			if (typeof value !== 'undefined' && value !== null) {
@@ -2570,7 +2572,7 @@
 		 * @param {string} value
 		 * @returns {object}
 		 */
-		getItem: function(value) {
+		getItem: function (value) {
 			return this.getElementWithValue(value, this.$control.children());
 		},
 	
@@ -2581,7 +2583,7 @@
 		 * @param {string} value
 		 * @param {boolean} silent
 		 */
-		addItems: function(values, silent) {
+		addItems: function (values, silent) {
 			this.buffer = document.createDocumentFragment();
 	
 			var childNodes = this.$control[0].childNodes;
@@ -2608,10 +2610,10 @@
 		 * @param {string} value
 		 * @param {boolean} silent
 		 */
-		addItem: function(value, silent) {
+		addItem: function (value, silent) {
 			var events = silent ? [] : ['change'];
 	
-			debounce_events(this, events, function() {
+			debounce_events(this, events, function () {
 				var $item, $option, $options;
 				var self = this;
 				var inputMode = self.settings.mode;
@@ -2659,7 +2661,7 @@
 					self.trigger('item_add', value, $item);
 	
 					if (!self.isPending) {
-						self.updateOriginalInput({silent: silent});
+						self.updateOriginalInput({ silent: silent });
 					}
 				}
 			});
@@ -2671,7 +2673,7 @@
 		 *
 		 * @param {string} value
 		 */
-		removeItem: function(value, silent) {
+		removeItem: function (value, silent) {
 			var self = this;
 			var $item, i, idx;
 	
@@ -2698,7 +2700,7 @@
 	
 				self.refreshState();
 				self.updatePlaceholder();
-				self.updateOriginalInput({silent: silent});
+				self.updateOriginalInput({ silent: silent });
 				self.positionDropdown();
 				self.trigger('item_remove', value, $item);
 			}
@@ -2717,13 +2719,13 @@
 		 * @param {function} [callback]
 		 * @return {boolean}
 		 */
-		createItem: function(input, triggerDropdown) {
-			var self  = this;
+		createItem: function (input, triggerDropdown) {
+			var self = this;
 			var caret = self.caretPos;
 			input = input || $.trim(self.$control_input.val() || '');
 	
 			var callback = arguments[arguments.length - 1];
-			if (typeof callback !== 'function') callback = function() {};
+			if (typeof callback !== 'function') callback = function () { };
 	
 			if (typeof triggerDropdown !== 'boolean') {
 				triggerDropdown = true;
@@ -2736,14 +2738,14 @@
 	
 			self.lock();
 	
-			var setup = (typeof self.settings.create === 'function') ? this.settings.create : function(input) {
+			var setup = (typeof self.settings.create === 'function') ? this.settings.create : function (input) {
 				var data = {};
 				data[self.settings.labelField] = input;
 				data[self.settings.valueField] = input;
 				return data;
 			};
 	
-			var create = once(function(data) {
+			var create = once(function (data) {
 				self.unlock();
 	
 				if (!data || typeof data !== 'object') return callback();
@@ -2769,7 +2771,7 @@
 		/**
 		 * Re-renders the selected item lists.
 		 */
-		refreshItems: function() {
+		refreshItems: function () {
 			this.lastQuery = null;
 	
 			if (this.isSetup) {
@@ -2784,7 +2786,7 @@
 		 * Updates all state-dependent attributes
 		 * and CSS classes.
 		 */
-		refreshState: function() {
+		refreshState: function () {
 			this.refreshValidityState();
 			this.refreshClasses();
 		},
@@ -2797,7 +2799,7 @@
 		 * needs to be temporarily deactivated on the input since the input is
 		 * hidden and can't show errors.
 		 */
-		refreshValidityState: function() {
+		refreshValidityState: function () {
 			if (!this.isRequired) return false;
 	
 			var invalid = !this.items.length;
@@ -2810,9 +2812,9 @@
 		/**
 		 * Updates all state-dependent CSS classes.
 		 */
-		refreshClasses: function() {
-			var self     = this;
-			var isFull   = self.isFull();
+		refreshClasses: function () {
+			var self = this;
+			var isFull = self.isFull();
 			var isLocked = self.isLocked;
 	
 			self.$wrapper
@@ -2839,7 +2841,7 @@
 		 *
 		 * @returns {boolean}
 		 */
-		isFull: function() {
+		isFull: function () {
 			return this.settings.maxItems !== null && this.items.length >= this.settings.maxItems;
 		},
 	
@@ -2847,7 +2849,7 @@
 		 * Refreshes the original <select> or <input>
 		 * element to reflect the current state.
 		 */
-		updateOriginalInput: function(opts) {
+		updateOriginalInput: function (opts) {
 			var i, n, options, label, self = this;
 			opts = opts || {};
 	
@@ -2863,7 +2865,7 @@
 				self.$input.html(options.join(''));
 			} else {
 				self.$input.val(self.getValue());
-				self.$input.attr('value',self.$input.val());
+				self.$input.attr('value', self.$input.val());
 			}
 	
 			if (self.isSetup) {
@@ -2877,7 +2879,7 @@
 		 * Shows/hide the input placeholder depending
 		 * on if there items in the list already.
 		 */
-		updatePlaceholder: function() {
+		updatePlaceholder: function () {
 			if (!this.settings.placeholder) return;
 			var $input = this.$control_input;
 	
@@ -2886,30 +2888,30 @@
 			} else {
 				$input.attr('placeholder', this.settings.placeholder);
 			}
-			$input.triggerHandler('update', {force: true});
+			$input.triggerHandler('update', { force: true });
 		},
 	
 		/**
 		 * Shows the autocomplete dropdown containing
 		 * the available options.
 		 */
-		open: function() {
+		open: function () {
 			var self = this;
 	
 			if (self.isLocked || self.isOpen || (self.settings.mode === 'multi' && self.isFull())) return;
 			self.focus();
 			self.isOpen = true;
 			self.refreshState();
-			self.$dropdown.css({visibility: 'hidden', display: 'block'});
+			self.$dropdown.css({ visibility: 'hidden', display: 'block' });
 			self.positionDropdown();
-			self.$dropdown.css({visibility: 'visible'});
+			self.$dropdown.css({ visibility: 'visible' });
 			self.trigger('dropdown_open', self.$dropdown);
 		},
 	
 		/**
 		 * Closes the autocomplete dropdown menu.
 		 */
-		close: function() {
+		close: function () {
 			var self = this;
 			var trigger = self.isOpen;
 	
@@ -2936,15 +2938,15 @@
 		 * Calculates and applies the appropriate
 		 * position of the dropdown.
 		 */
-		positionDropdown: function() {
+		positionDropdown: function () {
 			var $control = this.$control;
 			var offset = this.settings.dropdownParent === 'body' ? $control.offset() : $control.position();
 			offset.top += $control.outerHeight(true);
 	
 			this.$dropdown.css({
-				width : $control[0].getBoundingClientRect().width,
-				top   : offset.top,
-				left  : offset.left
+				width: $control[0].getBoundingClientRect().width,
+				top: offset.top,
+				left: offset.left
 			});
 		},
 	
@@ -2954,7 +2956,7 @@
 		 *
 		 * @param {boolean} silent
 		 */
-		clear: function(silent) {
+		clear: function (silent) {
 			var self = this;
 	
 			if (!self.items.length) return;
@@ -2964,7 +2966,7 @@
 			self.setCaret(0);
 			self.setActiveItem(null);
 			self.updatePlaceholder();
-			self.updateOriginalInput({silent: silent});
+			self.updateOriginalInput({ silent: silent });
 			self.refreshState();
 			self.showInput();
 			self.trigger('clear');
@@ -2976,7 +2978,7 @@
 		 *
 		 * @param {object} $el
 		 */
-		insertAtCaret: function($el) {
+		insertAtCaret: function ($el) {
 			var caret = Math.min(this.caretPos, this.items.length);
 			var el = $el[0];
 			var target = this.buffer || this.$control[0];
@@ -2996,7 +2998,7 @@
 		 * @param {object} e (optional)
 		 * @returns {boolean}
 		 */
-		deleteSelection: function(e) {
+		deleteSelection: function (e) {
 			var i, n, direction, selection, values, caret, option_select, $option_select, $tail;
 			var self = this;
 	
@@ -3068,7 +3070,7 @@
 		 * @param {int} direction
 		 * @param {object} e (optional)
 		 */
-		advanceSelection: function(direction, e) {
+		advanceSelection: function (direction, e) {
 			var tail, selection, idx, valueLength, cursorAtEdge, $tail;
 			var self = this;
 	
@@ -3103,7 +3105,7 @@
 		 * @param {int} direction
 		 * @param {object} e (optional)
 		 */
-		advanceCaret: function(direction, e) {
+		advanceCaret: function (direction, e) {
 			var self = this, fn, $adj;
 	
 			if (direction === 0) return;
@@ -3126,7 +3128,7 @@
 		 *
 		 * @param {int} i
 		 */
-		setCaret: function(i) {
+		setCaret: function (i) {
 			var self = this;
 	
 			if (self.settings.mode === 'single') {
@@ -3135,7 +3137,7 @@
 				i = Math.max(0, Math.min(self.items.length, i));
 			}
 	
-			if(!self.isPending) {
+			if (!self.isPending) {
 				// the input must be moved by leaving it in place and moving the
 				// siblings, due to the fact that focus cannot be restored once lost
 				// on mobile webkit devices
@@ -3143,7 +3145,7 @@
 				$children = self.$control.children(':not(input)');
 				for (j = 0, n = $children.length; j < n; j++) {
 					$child = $($children[j]).detach();
-					if (j <  i) {
+					if (j < i) {
 						self.$control_input.before($child);
 					} else {
 						self.$control.append($child);
@@ -3158,7 +3160,7 @@
 		 * Disables user input on the control. Used while
 		 * items are being asynchronously created.
 		 */
-		lock: function() {
+		lock: function () {
 			this.close();
 			this.isLocked = true;
 			this.refreshState();
@@ -3167,7 +3169,7 @@
 		/**
 		 * Re-enables user input on the control.
 		 */
-		unlock: function() {
+		unlock: function () {
 			this.isLocked = false;
 			this.refreshState();
 		},
@@ -3176,7 +3178,7 @@
 		 * Disables user input on the control completely.
 		 * While disabled, it cannot receive focus.
 		 */
-		disable: function() {
+		disable: function () {
 			var self = this;
 			self.$input.prop('disabled', true);
 			self.$control_input.prop('disabled', true).prop('tabindex', -1);
@@ -3188,7 +3190,7 @@
 		 * Enables the control so that it can respond
 		 * to focus and user input.
 		 */
-		enable: function() {
+		enable: function () {
 			var self = this;
 			self.$input.prop('disabled', false);
 			self.$control_input.prop('disabled', false).prop('tabindex', self.tabIndex);
@@ -3201,7 +3203,7 @@
 		 * unbinds all event listeners so that it can
 		 * be garbage collected.
 		 */
-		destroy: function() {
+		destroy: function () {
 			var self = this;
 			var eventNS = self.eventNS;
 			var revertSettings = self.revertSettings;
@@ -3216,7 +3218,7 @@
 				.append(revertSettings.$children)
 				.removeAttr('tabindex')
 				.removeClass('selectized')
-				.attr({tabindex: revertSettings.tabindex})
+				.attr({ tabindex: revertSettings.tabindex })
 				.show();
 	
 			self.$control_input.removeData('grow');
@@ -3242,7 +3244,7 @@
 		 * @param {object} data
 		 * @returns {string}
 		 */
-		render: function(templateName, data) {
+		render: function (templateName, data) {
 			var value, id, label;
 			var html = '';
 			var cache = false;
@@ -3276,7 +3278,7 @@
 			else if (templateName === 'optgroup') {
 				id = data[self.settings.optgroupValueField] || '';
 				html.attr('data-group', id);
-				if(data[self.settings.disabledField]) {
+				if (data[self.settings.disabledField]) {
 					html.attr('data-disabled', '');
 				}
 			}
@@ -3299,7 +3301,7 @@
 		 *
 		 * @param {string} templateName
 		 */
-		clearCache: function(templateName) {
+		clearCache: function (templateName) {
 			var self = this;
 			if (typeof templateName === 'undefined') {
 				self.renderCache = {};
@@ -3315,7 +3317,7 @@
 		 * @param {string} input
 		 * @return {boolean}
 		 */
-		canCreate: function(input) {
+		canCreate: function (input) {
 			var self = this;
 			if (!self.settings.create) return false;
 			var filter = self.settings.createFilter;
