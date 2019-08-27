@@ -360,18 +360,18 @@ $.extend(Selectize.prototype, {
 	 * @param {object} e
 	 * @return {boolean}
 	 */
-	// onClick: function(e) {
-	// 	var self = this;
+	onClick: function (e) {
+		// var self = this;
 
-	// 	// necessary for mobile webkit devices (manual focus triggering
-	// 	// is ignored unless invoked within a click event)
-	// // also necessary to reopen a dropdown that has been closed by
-	// // closeAfterSelect
-	// 	if (!self.isFocused || !self.isOpen) {
-	// 		self.focus();
-	// 		e.preventDefault();
-	// 	}
-	// },
+		// necessary for mobile webkit devices (manual focus triggering
+		// is ignored unless invoked within a click event)
+		// also necessary to reopen a dropdown that has been closed by
+		// closeAfterSelect
+		// if (!self.isFocused || !self.isOpen) {
+		// 	self.focus();
+		// 	e.preventDefault();
+		// }
+	},
 
 	/**
 	 * Triggered when the main control element
